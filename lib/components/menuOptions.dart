@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 
@@ -16,14 +16,12 @@ class _MenuOptionState extends State<MenuOption> {
     return Container(
       width: 261,
       height: 50,
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(99, 180, 255, 0.1),
-        borderRadius: BorderRadius.all(Radius.circular(100))
-      ),
-      child: Center(child: Text(
-        widget.menuTitle,
-        style: Theme.of(context).textTheme.headline4
-      )),
+      decoration: const BoxDecoration(
+          color: Color.fromRGBO(99, 180, 255, 0.1),
+          borderRadius: BorderRadius.all(Radius.circular(100))),
+      child: Center(
+          child: Text(widget.menuTitle,
+              style: Theme.of(context).textTheme.headline4)),
     );
   }
 }

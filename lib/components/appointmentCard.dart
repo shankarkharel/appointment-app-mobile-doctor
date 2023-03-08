@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names
 
 import 'package:appointment_app_mobile/routes/appointment.dart';
 import 'package:flutter/material.dart';

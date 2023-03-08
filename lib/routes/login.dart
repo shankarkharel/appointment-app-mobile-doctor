@@ -135,17 +135,17 @@ class _LoginPageState extends State<LoginPage> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Login successful')),
                             );
-                            var shared = await SharedPreferences.getInstance();
-
-                            shared.setString(
-                                "email", emailController.text.trim());
-                            log(emailController.text.trim());
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(
                               builder: (context) {
                                 return HomePage();
                               },
                             ));
+                            var shared = await SharedPreferences.getInstance();
+
+                            shared.setString(
+                                "email", emailController.text.trim());
+                            log(emailController.text.trim());
                           }
                         },
                         child: Container(

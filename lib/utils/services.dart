@@ -9,25 +9,23 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models.dart/appointment.dart';
+import '../utils/constants.dart' as constant;
 
 class Services {
-  static Uri url = Uri.parse('http://192.168.0.117/backend/app.php');
-  static Uri doctorlist =
-      Uri.parse('http://192.168.0.117/backend/get_doctor.php');
+  static String path = constant.path;
+  static Uri url = Uri.parse('$path/backend/app.php');
+  static Uri doctorlist = Uri.parse('$path/backend/get_doctor.php');
   static Uri appointmentrequest =
-      Uri.parse('http://192.168.0.117/backend/add_appointment.php');
-  static Uri getcurrent =
-      Uri.parse('http://192.168.0.117/backend/get_current.php');
-  static Uri getPendingAppointment =
-      Uri.parse('http://192.168.0.117/backend/appointment.php');
+      Uri.parse('$path/backend/add_appointment.php');
+  static Uri getcurrent = Uri.parse('$path/backend/get_current.php');
+  static Uri getPendingAppointment = Uri.parse('$path/backend/appointment.php');
   static Uri getAcceptedAppointment =
-      Uri.parse('http://192.168.0.117/backend/get_accepted_appointments.php');
+      Uri.parse('$path/backend/get_accepted_appointments.php');
   static Uri getRejectedAppointment =
-      Uri.parse('http://192.168.0.117/backend/get_rejected_appointment.php');
-  static Uri getPatientByid =
-      Uri.parse('http://192.168.0.117/backend/get_patient_by_id.php');
-  static Uri getAcceptedAppointmentsforPatient = Uri.parse(
-      'http://192.168.0.117/backend/get_accepted_appointment_for_patient.php');
+      Uri.parse('$path/backend/get_rejected_appointment.php');
+  static Uri getPatientByid = Uri.parse('$path/backend/get_patient_by_id.php');
+  static Uri getAcceptedAppointmentsforPatient =
+      Uri.parse('$path/backend/get_accepted_appointment_for_patient.php');
 
   static const _CREATE_TABLE_ACTION = 'CREATE_TABLE';
   static const _ADD_EMP_ACTION = 'ADD_EMP';
@@ -321,5 +319,25 @@ class Services {
     final appointments =
         list.map<Appointment>((json) => Appointment.fromJson(json)).toList();
     return appointments;
+  }
+
+  static Future<List<Doctor>> getProductById(String id) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['id'] = id;
+
+      final response = await http.post(getPatientByid, body: map); //
+
+      var list = json.decode(response.body);
+      log("getpatientbyid: ${response.body.toString()}");
+      final doctorsArray =
+          list.map<Doctor>((json) => Doctor.fromJson(json)).toList();
+      log("doctors list${response.body.toString()}");
+      return doctorsArray;
+    } catch (e) {
+      log("Error getting user by id $id");
+      log("error: ${e.toString()}");
+      return [];
+    }
   }
 }

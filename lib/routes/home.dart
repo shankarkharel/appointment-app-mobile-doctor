@@ -2,18 +2,15 @@
 
 import 'dart:developer';
 
+import 'package:appointment_app_mobile/components/appointmentCard.dart';
 import 'package:appointment_app_mobile/components/menuOptions.dart';
 import 'package:appointment_app_mobile/models.dart/doctors.dart';
 import 'package:appointment_app_mobile/routes/book.dart';
 import 'package:appointment_app_mobile/routes/login.dart';
-import 'package:appointment_app_mobile/routes/store_home.dart';
 import 'package:appointment_app_mobile/utils/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../components/appointmentCard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   String firstName = "";
   List<AppointmentCard> appointments = [];
   late bool isDoctor = false;
-  final session = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
@@ -94,7 +90,7 @@ class _HomePageState extends State<HomePage> {
         String dateFormatted = DateFormat('EEEE, d MMMM').format(date);
         doctor = await Services.getPatientById(appointment.patientid!);
         appointmentList.add(AppointmentCard(
-          doctorName: "Dr. ${doctor.first.firstName} ${doctor.first.lastName}",
+          doctorName: " ${doctor.first.firstName} ${doctor.first.lastName}",
           appoinmentDate: dateFormatted,
           appointmentTime: appointment.time!,
           description: appointment.description!,
@@ -122,13 +118,7 @@ class _HomePageState extends State<HomePage> {
                       return BookPage();
                     },
                   ));
-                } else if (value == 2) {
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context) {
-                      return StoreHomeScreen();
-                    },
-                  ));
-                }
+                } else if (value == 2) {}
               },
               showUnselectedLabels: false,
               showSelectedLabels: false,
@@ -180,14 +170,13 @@ class _HomePageState extends State<HomePage> {
                           height: 6,
                         ),
                         Text(
-                          "Hi $firstName",
+                          " $firstName",
                           style: Theme.of(context).textTheme.headline1,
                         )
                       ],
                     ),
                     InkWell(
                       onTap: () async {
-                        await FirebaseAuth.instance.signOut();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('User signed out.')),
                         );

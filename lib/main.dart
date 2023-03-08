@@ -1,17 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, invalid_use_of_visible_for_testing_member
 
 import 'package:appointment_app_mobile/routes/home.dart';
 import 'package:appointment_app_mobile/routes/login.dart';
-import 'package:appointment_app_mobile/routes/store_home.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'routes/cart_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  SharedPreferences.setMockInitialValues({});
   runApp(const MyApp());
 }
 
@@ -21,13 +16,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    bool isSignedIn = FirebaseAuth.instance.currentUser != null ? true : false;
     return MaterialApp(
       routes: {
         'home': (context) => const HomePage(),
-        'store': (context) => StoreHomeScreen(),
         'login': (context) => const LoginPage(),
-        'cart': (context) => const Cart()
       },
       title: 'Appointment App',
       theme: ThemeData(
@@ -56,7 +48,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: Color(0xff8696BB), fontSize: 12),
         ),
       ),
-      home: isSignedIn ? HomePage() : LoginPage(),
+      home: LoginPage(),
     );
   }
 }
