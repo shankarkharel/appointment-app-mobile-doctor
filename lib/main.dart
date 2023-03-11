@@ -3,10 +3,8 @@
 import 'package:appointment_app_mobile/routes/home.dart';
 import 'package:appointment_app_mobile/routes/login.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-  SharedPreferences.setMockInitialValues({});
   runApp(const MyApp());
 }
 
